@@ -5,6 +5,7 @@ import {
   init,
   expandViewport,
   isViewportExpanded,
+  disableVerticalSwipes,
 } from "@telegram-apps/sdk-react";
 import { useTelegramMock } from "@/hooks/useTelegramMock";
 
@@ -20,6 +21,7 @@ function RootInner({ children }: PropsWithChildren) {
     if (!isViewportExpanded()) {
       expandViewport();
     }
+    disableVerticalSwipes();
   }, []);
 
   return <>{children}</>;
