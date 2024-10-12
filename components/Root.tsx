@@ -1,7 +1,11 @@
 "use client";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useEffect } from "react";
 import { useDidMount } from "@/hooks/useDidMount";
-import { init, expandViewport } from "@telegram-apps/sdk-react";
+import {
+  init,
+  expandViewport,
+  isViewportExpanded,
+} from "@telegram-apps/sdk-react";
 import { useTelegramMock } from "@/hooks/useTelegramMock";
 
 function RootInner({ children }: PropsWithChildren) {
@@ -11,8 +15,12 @@ function RootInner({ children }: PropsWithChildren) {
     useTelegramMock();
   }
 
-  init();
-  expandViewport();
+  useEffect(() => {
+    init();
+    if (!isViewportExpanded()) {
+      expandViewport();
+    }
+  }, []);
 
   return <div>{children}</div>;
 }
