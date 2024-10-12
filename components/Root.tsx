@@ -17,9 +17,7 @@ function RootInner({ children }: PropsWithChildren) {
 
   useEffect(() => {
     init();
-    if (!isViewportExpanded) {
-      expandViewport();
-    }
+    expandViewport();
   }, []);
 
   return <div>{children}</div>;
