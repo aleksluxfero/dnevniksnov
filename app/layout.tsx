@@ -15,9 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <Root>
-        <body>{children}</body>
-      </Root>
+      <body>
+        <Root>{children}</Root>
+      </body>
     </html>
   );
 }
