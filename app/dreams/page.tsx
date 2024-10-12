@@ -3,6 +3,7 @@
 import {
   hideBackButton,
   isBackButtonMounted,
+  isBackButtonSupported,
   mountBackButton,
   offBackButtonClick,
   onBackButtonClick,
@@ -17,24 +18,26 @@ export default function Dreams() {
   const pathname = usePathname();
 
   useEffect(() => {
-    mountBackButton();
-  }, []);
-
-  useEffect(() => {
-    const handleBackButtonClick = () => {
-      console.log("BackButtonCLick");
-      if (pathname !== "/") {
-        router.push("/");
+    console.log("Button Supported", isBackButtonSupported());
+    if (isBackButtonSupported()) {
+      const handleBackButtonClick = () => {
+        console.log("BackButtonClick");
+        if (pathname !== "/") {
+          router.push("/");
+        }
+      };
+      if (!isBackButtonMounted()) {
+        mountBackButton();
       }
-    };
-    if (isBackButtonMounted()) {
+
       showBackButton();
       onBackButtonClick(handleBackButtonClick);
+
+      return () => {
+        offBackButtonClick(handleBackButtonClick);
+        hideBackButton();
+      };
     }
-    return () => {
-      offBackButtonClick(handleBackButtonClick);
-      hideBackButton();
-    };
   }, [pathname, router]);
 
   return (
