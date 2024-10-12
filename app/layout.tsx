@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ReactNode } from "react";
+import { Root } from "@/components/Root";
 
 export const metadata: Metadata = {
   title: "Дневник снов",
@@ -14,7 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body>{children}</body>
+      <Root>
+        <body>{children}</body>
+      </Root>
     </html>
   );
 }
