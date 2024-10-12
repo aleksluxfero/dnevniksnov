@@ -7,9 +7,6 @@ import {
   isViewportExpanded,
   disableVerticalSwipes,
   mountSwipeBehavior,
-  isSwipeBehaviorSupported,
-  isSwipeBehaviorMounted,
-  isVerticalSwipesEnabled,
 } from "@telegram-apps/sdk-react";
 import { useTelegramMock } from "@/hooks/useTelegramMock";
 
@@ -21,21 +18,13 @@ function RootInner({ children }: PropsWithChildren) {
   }
 
   useEffect(() => {
-    console.log("Поодерживается ли свайп", isSwipeBehaviorSupported());
     init();
     if (!isViewportExpanded()) {
       expandViewport();
     }
-    if (isSwipeBehaviorSupported()) {
-      console.log("swipe behavior", isSwipeBehaviorMounted());
-      mountSwipeBehavior();
-      console.log("swipe behavior", isSwipeBehaviorMounted());
-      if (isSwipeBehaviorMounted()) {
-        console.log("swipe enable", isVerticalSwipesEnabled());
-        disableVerticalSwipes();
-        console.log("swipe enable", isVerticalSwipesEnabled());
-      }
-    }
+
+    mountSwipeBehavior();
+    disableVerticalSwipes();
   }, []);
 
   return <>{children}</>;
