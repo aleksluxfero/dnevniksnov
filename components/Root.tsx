@@ -22,7 +22,7 @@ function RootInner({ children }: PropsWithChildren) {
     }
   }, []);
 
-  return <div>{children}</div>;
+  return <>{children}</>;
 }
 
 export function Root(props: PropsWithChildren) {
