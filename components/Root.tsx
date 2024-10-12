@@ -1,3 +1,4 @@
+"use client";
 import { PropsWithChildren, useEffect } from "react";
 import { useDidMount } from "@/hooks/useDidMount";
 import {
