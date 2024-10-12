@@ -18,10 +18,10 @@ export default function Dreams() {
   const pathname = usePathname();
 
   useEffect(() => {
-    console.log("Button Supported", isBackButtonSupported());
+    console.log("Back Button Supported", isBackButtonSupported());
     if (isBackButtonSupported()) {
       const handleBackButtonClick = () => {
-        console.log("BackButtonClick");
+        console.log("Back Button Click");
         if (pathname !== "/") {
           router.push("/");
         }
@@ -36,6 +36,7 @@ export default function Dreams() {
       return () => {
         offBackButtonClick(handleBackButtonClick);
         hideBackButton();
+        console.log("Back Button Unmount");
       };
     }
   }, [pathname, router]);
