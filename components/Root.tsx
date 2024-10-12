@@ -11,10 +11,8 @@ function RootInner({ children }: PropsWithChildren) {
     useTelegramMock();
   }
 
-  useEffect(() => {
-    init();
-    expandViewport();
-  }, []);
+  init();
+  expandViewport();
 
   return <div>{children}</div>;
 }
