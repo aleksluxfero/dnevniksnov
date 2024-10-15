@@ -45,7 +45,7 @@ export default function Dreams() {
     const invoiceLink = await createInvoiceLink();
     if (invoiceLink) {
       isInvoiceOpened(); // false
-      const promise = openInvoice(invoiceLink);
+      const promise = openInvoice(invoiceLink, "url");
       isInvoiceOpened(); // true
       const status = await promise;
       console.log(status);
