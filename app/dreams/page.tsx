@@ -42,10 +42,10 @@ export default function Dreams() {
   }, [pathname, router]);
 
   const startPay = async () => {
-    const invoiceSlug = await createInvoiceLink();
-    if (invoiceSlug) {
+    const invoiceLink = await createInvoiceLink();
+    if (invoiceLink) {
       isInvoiceOpened(); // false
-      const promise = openInvoice(invoiceSlug);
+      const promise = openInvoice(invoiceLink);
       isInvoiceOpened(); // true
       const status = await promise;
       console.log(status);

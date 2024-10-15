@@ -29,11 +29,7 @@ export const createInvoiceLink = async (): Promise<string | null> => {
     const invoiceLink = data.result; // Ссылка на инвойс
     console.log("Ссылка на инвойс:", invoiceLink);
 
-    // Извлеки slug из ссылки на инвойс
-    const invoiceSlug = invoiceLink.split("/").pop(); // Последняя часть URL — это и есть slug
-    console.log("Invoice Slug:", invoiceSlug);
-
-    return invoiceSlug;
+    return invoiceLink;
   } else {
     console.error("Ошибка создания ссылки:", data.description);
     return null;
