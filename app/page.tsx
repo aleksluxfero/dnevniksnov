@@ -1,16 +1,21 @@
 "use client";
 import Link from "next/link";
-import { useLaunchParams } from "@telegram-apps/sdk-react";
+import { initDataUser, User } from "@telegram-apps/sdk-react";
 import { useEffect, useState } from "react";
 import { Loader } from "@/components/loader/app-loader";
 
 export default function Home() {
   const [data, setData] = useState("");
-  const initData = useLaunchParams();
-  const userId = initData.initData?.user?.id;
+  const [user, setUser] = useState<User>();
+
   useEffect(() => {
-    if (userId) {
-      console.log(userId);
+    const userData = initDataUser();
+    setUser(userData);
+  }, []);
+
+  useEffect(() => {
+    if (user?.id) {
+      console.log(user?.id);
       const timeoutId = setTimeout(() => {
         setData("Привет");
       }, 3000);
@@ -18,7 +23,7 @@ export default function Home() {
         clearTimeout(timeoutId);
       };
     }
-  }, [userId]);
+  }, [user?.id]);
 
   if (!data) {
     return <Loader />;
@@ -26,7 +31,7 @@ export default function Home() {
 
   return (
     <div>
-      <h1>Home {initData.initData?.user?.username}</h1>
+      <h1>Home {user?.username}</h1>
       <Link href={"/dreams"}>Сны</Link>
       <Link href={"/test-invoice"}>Покупка</Link>
     </div>
