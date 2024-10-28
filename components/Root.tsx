@@ -1,5 +1,5 @@
 "use client";
-import { PropsWithChildren, useEffect, useState } from "react";
+import { PropsWithChildren, useEffect } from "react";
 import { useDidMount } from "@/hooks/useDidMount";
 import {
   init,
@@ -9,11 +9,15 @@ import {
   setMiniAppHeaderColor,
   expandViewport,
   mountViewport,
+  isViewportStable,
+  isViewportMounted,
   isViewportExpanded,
+  viewportHeight,
+  viewportStableHeight,
+  viewportState,
 } from "@telegram-apps/sdk-react";
 import { useTelegramMock } from "@/hooks/useTelegramMock";
 import { useBackButton } from "@/hooks/useBackButton";
-import { Loader } from "@/components/loader/app-loader";
 
 function RootInner({ children }: PropsWithChildren) {
   // Mock Telegram environment in development mode if needed.
@@ -22,9 +26,12 @@ function RootInner({ children }: PropsWithChildren) {
     useTelegramMock();
   }
 
-  const [data, setData] = useState<string>("");
-  const [isSendData, setIsSendData] = useState(false);
-  const viewportExpanded = isViewportExpanded();
+  const stableViewPort = isViewportStable();
+  const mountedViewPort = isViewportMounted();
+  const expandedViewPort = isViewportExpanded();
+  const vh = viewportHeight();
+  const vsh = viewportStableHeight();
+  const vs = viewportState();
 
   useEffect(() => {
     init();
@@ -37,35 +44,24 @@ function RootInner({ children }: PropsWithChildren) {
   }, []);
 
   useEffect(() => {
-    if (viewportExpanded) {
-      setIsSendData(true);
-      const timeoutId = setTimeout(() => {
-        setData("ok");
-        setIsSendData(false);
-      }, 1000);
-      return () => {
-        clearTimeout(timeoutId);
-      };
-    }
-  }, [viewportExpanded]);
+    console.log(stableViewPort);
+    console.log(mountedViewPort);
+    console.log(expandedViewPort);
+    console.log(vh);
+    console.log(vsh);
+    console.log(vs);
+  }, [expandedViewPort, mountedViewPort, stableViewPort, vh, vs, vsh]);
 
   useBackButton();
 
-  console.log(data);
-
-  if (!viewportExpanded) {
-    return <span>Вьюпорт не открыт</span>;
-  }
-
-  if (isSendData && viewportExpanded) {
-    return <Loader />;
-  }
-
-  if (!data) {
-    return <span>Нет данных</span>;
-  }
-
-  return <>{children}</>;
+  return (
+    <>
+      {vh && vh}
+      {vsh && vsh}
+      {vs && vs}
+      {children}
+    </>
+  );
 }
 
 export function Root(props: PropsWithChildren) {
