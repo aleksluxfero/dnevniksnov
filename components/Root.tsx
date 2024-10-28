@@ -30,7 +30,7 @@ function RootInner({ children }: PropsWithChildren) {
   setMiniAppHeaderColor("#121318");
   useBackButton();
 
-  return <Loader />;
+  return <>{children}</>;
 }
 
 export function Root(props: PropsWithChildren) {
