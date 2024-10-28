@@ -1,5 +1,5 @@
 "use client";
-import { PropsWithChildren, useEffect } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import { useDidMount } from "@/hooks/useDidMount";
 import {
   init,
@@ -22,6 +22,7 @@ function RootInner({ children }: PropsWithChildren) {
   }
 
   const expandedViewPort = isViewportExpanded();
+  const [data, setData] = useState("");
 
   useEffect(() => {
     console.log("effect");
@@ -38,11 +39,16 @@ function RootInner({ children }: PropsWithChildren) {
     if (expandedViewPort) {
       console.log("dads", expandedViewPort);
       disableVerticalSwipes();
+      setData("123");
     }
     setMiniAppHeaderColor("#121318");
   }, [expandedViewPort]);
 
   useBackButton();
+
+  if (data) {
+    return <span>{data}</span>;
+  }
 
   return <>{children}</>;
 }
