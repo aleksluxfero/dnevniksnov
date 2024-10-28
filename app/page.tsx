@@ -9,13 +9,13 @@ export default function Home() {
   const [data, setData] = useState("");
 
   useEffect(() => {
-    if (user?.id) {
+    if (user?.initData?.user?.id) {
       const timeoutId = setTimeout(() => {
         setData("Привет");
       }, 3000);
       return () => clearTimeout(timeoutId);
     }
-  }, [user?.id]);
+  }, [user?.initData?.user?.id]);
 
   if (!data) {
     return <Loader />;
@@ -23,7 +23,7 @@ export default function Home() {
 
   return (
     <div>
-      <h1>Home {user?.username}</h1>
+      <h1>Home {user?.initData?.user?.id}</h1>
       <Link href={"/dreams"}>Сны</Link>
       <Link href={"/test-invoice"}>Покупка</Link>
     </div>

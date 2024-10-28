@@ -7,23 +7,23 @@ import {
   useEffect,
   useState,
 } from "react";
-import { initDataUser, User } from "@telegram-apps/sdk-react";
+import { LaunchParams, useLaunchParams, User } from "@telegram-apps/sdk-react";
 
 // Определяем интерфейс для контекста пользователя
 interface UserContextType {
-  user?: User;
-  setUser: (user: User) => void;
+  user?: LaunchParams;
+  setUser: (user: LaunchParams) => void;
 }
 
 // Создаем контекст с типизацией
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [user, setUser] = useState<User | undefined>();
+  const [user, setUser] = useState<LaunchParams | undefined>();
 
   useEffect(() => {
     if (!user) {
-      const userData = initDataUser();
+      const userData = useLaunchParams();
       setUser(userData);
     }
   }, [user]);
