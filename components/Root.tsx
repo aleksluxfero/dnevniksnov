@@ -12,6 +12,11 @@ import {
   isViewportExpanded,
   useSignal,
   enableVerticalSwipes,
+  isViewportStable,
+  isViewportMounted,
+  isMiniAppMounted,
+  miniAppReady,
+  isSwipeBehaviorMounted,
 } from "@telegram-apps/sdk-react";
 import { useTelegramMock } from "@/hooks/useTelegramMock";
 import { useBackButton } from "@/hooks/useBackButton";
@@ -23,27 +28,53 @@ function RootInner({ children }: PropsWithChildren) {
     useTelegramMock();
   }
 
+  init();
+
   const expandedViewPort = useSignal(isViewportExpanded);
+  const stableViewport = useSignal(isViewportStable);
+  const viewportMounted = useSignal(isViewportMounted);
+  const miniAppMounted = useSignal(isMiniAppMounted);
+  const swipeBehavior = useSignal(isSwipeBehaviorMounted);
 
   useEffect(() => {
-    console.log("effect");
-    init();
-    mountMiniApp();
-    mountViewport();
-    mountSwipeBehavior();
-    expandViewport();
-
-    setMiniAppHeaderColor("#121318");
-  }, []);
+    console.log("Miniapp", miniAppMounted);
+    if (!miniAppMounted) {
+      mountMiniApp();
+      miniAppReady();
+    } else {
+      setMiniAppHeaderColor("#121318");
+    }
+  }, [miniAppMounted]);
 
   useEffect(() => {
-    if (expandedViewPort) {
-      disableVerticalSwipes();
+    console.log("swipe behavior", swipeBehavior);
+    if (!swipeBehavior) {
+      mountSwipeBehavior();
+    }
+  }, [swipeBehavior]);
+
+  useEffect(() => {
+    console.log("viewport", viewportMounted);
+    if (!viewportMounted) {
+      mountViewport();
     } else {
       expandViewport();
+    }
+  }, [viewportMounted]);
+
+  useEffect(() => {
+    console.log(
+      "disableVerticalSwipes",
+      swipeBehavior,
+      stableViewport,
+      expandedViewPort,
+    );
+    if (expandedViewPort && stableViewport && swipeBehavior) {
+      disableVerticalSwipes();
+    } else {
       enableVerticalSwipes();
     }
-  }, [expandedViewPort]);
+  }, [expandedViewPort, stableViewport, swipeBehavior]);
 
   useBackButton();
 
