@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { DetailedHTMLProps, FC, HTMLAttributes } from "react";
 import { ChartPie, CircleUser, NotebookPen, Rss } from "lucide-react";
 
 const menuNav = [
