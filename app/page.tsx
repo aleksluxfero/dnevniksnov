@@ -9,6 +9,7 @@ export default function Home() {
   const [data, setData] = useState("");
 
   useEffect(() => {
+    console.log(user);
     if (user?.initData?.user?.id) {
       const timeoutId = setTimeout(() => {
         setData("Привет");
