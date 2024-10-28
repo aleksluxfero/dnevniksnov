@@ -1,5 +1,5 @@
 "use client";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useEffect } from "react";
 import { useDidMount } from "@/hooks/useDidMount";
 import {
   init,
@@ -19,14 +19,18 @@ function RootInner({ children }: PropsWithChildren) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useTelegramMock();
   }
-  init();
-  mountMiniApp();
-  mountViewport();
-  expandViewport();
-  mountSwipeBehavior();
-  console.log(children);
-  disableVerticalSwipes();
-  setMiniAppHeaderColor("#121318");
+
+  useEffect(() => {
+    init();
+    mountMiniApp();
+    mountViewport();
+    mountSwipeBehavior();
+    console.log("effect");
+    expandViewport();
+    disableVerticalSwipes();
+    setMiniAppHeaderColor("#121318");
+  }, []);
+
   useBackButton();
 
   return <>{children}</>;
