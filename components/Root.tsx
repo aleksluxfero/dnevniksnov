@@ -25,18 +25,14 @@ function RootInner({ children }: PropsWithChildren) {
   mountMiniApp();
   mountViewport();
   mountSwipeBehavior();
-  expandViewport();
-  const viewportExpanded = isViewportExpanded();
 
   console.log(children);
 
   useEffect(() => {
-    console.log(viewportExpanded);
-    if (viewportExpanded) {
-      disableVerticalSwipes();
-    }
+    expandViewport();
+    disableVerticalSwipes();
     setMiniAppHeaderColor("#121318");
-  }, [viewportExpanded]);
+  });
 
   useBackButton();
 
