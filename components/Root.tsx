@@ -32,7 +32,7 @@ function RootInner({ children }: PropsWithChildren) {
 
   useBackButton();
 
-  return <>{children}</>;
+  return <Loader spinner />;
 }
 
 export function Root(props: PropsWithChildren) {
