@@ -34,6 +34,7 @@ function RootInner({ children }: PropsWithChildren) {
     disableVerticalSwipes();
     setMiniAppHeaderColor("#121318");
     return () => {
+      console.log("unmount");
       unmountMiniApp();
       unmountSwipeBehavior();
       unmountViewport();
