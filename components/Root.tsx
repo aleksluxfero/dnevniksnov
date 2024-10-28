@@ -40,6 +40,7 @@ function RootInner({ children }: PropsWithChildren) {
     if (expandedViewPort) {
       disableVerticalSwipes();
     } else {
+      expandViewport();
       enableVerticalSwipes();
     }
   }, [expandedViewPort]);
