@@ -3,21 +3,45 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --max-width: 640px;
+  --font-default: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  --text: var(--steel_gray_40);
+  --background: var(--dark);
+  --foreground: var(--dark2);
+  --dark-blue: #00f;
+  --blue: #007bff;
+  --blue2: #1886ff;
+  --blue3: #51a4ff;
+  --blue4: #9fcdff;
+  --black: #000;
+  --white: #fff;
+  /*--dark: #01030c;
+  --dark2: #030313;*/
+  --dark: #0d0e11;
+  --dark2: #121318;
+  --dark_t9: rgba(13, 14, 17, .9);
+  --dark_t8: rgba(13, 14, 17, .8);
+  --dark2_t8: rgba(18, 19, 24, .8);
+  --dark2_t9: rgba(18, 19, 24, .9);
+  --gray_900: #222;
+  --steel_gray_400: #818c99;
+  --steel_gray_350: #9099a3;
+  --steel_gray_300: #99a2ad;
+  --steel_gray_80: #e7e8ec;
+  --steel_gray_40: #f2f3f5;
 }
 
-@media (prefers-color-scheme: dark) {
+/*@media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+}*/
 
 body {
-  color: var(--foreground);
+  color: var(--text);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-default);
 }
 
 @layer utilities {

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ReactNode } from "react";
 import { Root } from "@/components/Root";
+import { Navigation } from "@/components/navigation";
 
 export const metadata: Metadata = {
   title: "Дневник снов",
@@ -16,7 +17,14 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body>
-        <Root>{children}</Root>
+        <Root>
+          <div className="flex flex-col relative">
+            <main>{children}</main>
+            <div className="fixed w-full bottom-0 left-0">
+              <Navigation />
+            </div>
+          </div>
+        </Root>
       </body>
     </html>
   );
