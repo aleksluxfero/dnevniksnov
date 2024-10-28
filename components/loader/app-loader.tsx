@@ -1,10 +1,10 @@
 "use client";
 import styles from "./loader.module.css";
 
-export const Loader = ({ spinner }: { spinner?: boolean }) => {
+export const Loader = () => {
   return (
     <div className="flex items-center justify-center w-full h-screen">
-      {spinner && <span className={styles.loader} />}
+      <span className={styles.loader} />
     </div>
   );
 };
