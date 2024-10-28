@@ -34,11 +34,6 @@ function RootInner({ children }: PropsWithChildren) {
     expandViewport();
     disableVerticalSwipes();
     setMiniAppHeaderColor("#121318");
-    return () => {
-      unmountViewport();
-      unmountSwipeBehavior();
-      enableVerticalSwipes();
-    };
   }, []);
 
   useBackButton();
