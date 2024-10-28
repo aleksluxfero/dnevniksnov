@@ -7,7 +7,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { LaunchParams, useLaunchParams, User } from "@telegram-apps/sdk-react";
+import { LaunchParams, useLaunchParams } from "@telegram-apps/sdk-react";
 
 // Определяем интерфейс для контекста пользователя
 interface UserContextType {
