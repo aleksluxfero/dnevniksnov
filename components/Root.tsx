@@ -11,6 +11,7 @@ import {
 } from "@telegram-apps/sdk-react";
 import { useTelegramMock } from "@/hooks/useTelegramMock";
 import { useBackButton } from "@/hooks/useBackButton";
+import { AppLoader } from "@/components/app-loader";
 
 function RootInner({ children }: PropsWithChildren) {
   // Mock Telegram environment in development mode if needed.
@@ -19,14 +20,13 @@ function RootInner({ children }: PropsWithChildren) {
     useTelegramMock();
   }
 
-  init();
-  mountMiniApp();
-  mountSwipeBehavior();
-
   useEffect(() => {
-    setMiniAppHeaderColor("#121318");
+    init();
+    mountMiniApp();
     expandViewport();
+    mountSwipeBehavior();
     disableVerticalSwipes();
+    setMiniAppHeaderColor("#121318");
   }, []);
 
   useBackButton();
@@ -39,9 +39,5 @@ export function Root(props: PropsWithChildren) {
   // Rendering. That's why we are showing loader on the server side.
   const didMount = useDidMount();
 
-  return didMount ? (
-    <RootInner {...props} />
-  ) : (
-    <div className="root__loading">Loading</div>
-  );
+  return didMount ? <RootInner {...props} /> : <AppLoader />;
 }
