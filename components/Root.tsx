@@ -11,6 +11,7 @@ import {
   mountViewport,
   isViewportExpanded,
   useSignal,
+  enableVerticalSwipes,
 } from "@telegram-apps/sdk-react";
 import { useTelegramMock } from "@/hooks/useTelegramMock";
 import { useBackButton } from "@/hooks/useBackButton";
@@ -38,6 +39,8 @@ function RootInner({ children }: PropsWithChildren) {
   useEffect(() => {
     if (expandedViewPort) {
       disableVerticalSwipes();
+    } else {
+      enableVerticalSwipes();
     }
   }, [expandedViewPort]);
 
