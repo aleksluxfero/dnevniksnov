@@ -24,6 +24,7 @@ function RootInner({ children }: PropsWithChildren) {
 
   const [data, setData] = useState<string>("");
   const [isSendData, setIsSendData] = useState(false);
+  const viewportExpanded = isViewportExpanded();
 
   useEffect(() => {
     init();
@@ -36,7 +37,7 @@ function RootInner({ children }: PropsWithChildren) {
   }, []);
 
   useEffect(() => {
-    if (isViewportExpanded()) {
+    if (viewportExpanded) {
       setIsSendData(true);
       const timeoutId = setTimeout(() => {
         setData("ok");
@@ -46,13 +47,17 @@ function RootInner({ children }: PropsWithChildren) {
         clearTimeout(timeoutId);
       };
     }
-  }, []);
+  }, [viewportExpanded]);
 
   useBackButton();
 
   console.log(data);
 
-  if (isSendData && isViewportExpanded()) {
+  if (!viewportExpanded) {
+    return <span>Вьюпорт не открыт</span>;
+  }
+
+  if (isSendData && viewportExpanded) {
     return <Loader />;
   }
 
