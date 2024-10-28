@@ -29,28 +29,26 @@ function RootInner({ children }: PropsWithChildren) {
   const stableViewPort = isViewportStable();
   const mountedViewPort = isViewportMounted();
   const expandedViewPort = isViewportExpanded();
-  const vh = viewportHeight();
-  const vsh = viewportStableHeight();
-  const vs = viewportState();
 
   useEffect(() => {
+    console.log("effect");
     init();
     mountMiniApp();
     mountViewport();
     mountSwipeBehavior();
     expandViewport();
-    disableVerticalSwipes();
+    if (stableViewPort) {
+      disableVerticalSwipes();
+    }
     setMiniAppHeaderColor("#121318");
-  }, []);
+  }, [stableViewPort]);
 
   useEffect(() => {
+    console.log("effect");
     console.log(stableViewPort);
     console.log(mountedViewPort);
     console.log(expandedViewPort);
-    console.log(vh);
-    console.log(vsh);
-    console.log(vs);
-  }, [expandedViewPort, mountedViewPort, stableViewPort, vh, vs, vsh]);
+  }, [expandedViewPort, mountedViewPort, stableViewPort]);
 
   useBackButton();
 
