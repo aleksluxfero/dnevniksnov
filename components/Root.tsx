@@ -21,6 +21,7 @@ function RootInner({ children }: PropsWithChildren) {
     useTelegramMock();
   }
   init();
+  expandViewport();
   mountMiniApp();
   mountViewport();
   mountSwipeBehavior();
@@ -28,7 +29,6 @@ function RootInner({ children }: PropsWithChildren) {
   console.log(children);
 
   useEffect(() => {
-    expandViewport();
     disableVerticalSwipes();
     setMiniAppHeaderColor("#121318");
   }, []);
