@@ -36,15 +36,16 @@ function RootInner({ children }: PropsWithChildren) {
   }, []);
 
   useEffect(() => {
-    console.log(isViewportExpanded());
-    setIsSendData(true);
-    const timeoutId = setTimeout(() => {
-      setData("ok");
-      setIsSendData(false);
-    }, 1000);
-    return () => {
-      clearTimeout(timeoutId);
-    };
+    if (isViewportExpanded()) {
+      setIsSendData(true);
+      const timeoutId = setTimeout(() => {
+        setData("ok");
+        setIsSendData(false);
+      }, 1000);
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    }
   }, []);
 
   useBackButton();
@@ -53,6 +54,10 @@ function RootInner({ children }: PropsWithChildren) {
 
   if (isSendData && isViewportExpanded()) {
     return <Loader />;
+  }
+
+  if (!data) {
+    return <span>Нет данных</span>;
   }
 
   return <>{children}</>;
