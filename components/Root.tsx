@@ -26,13 +26,14 @@ function RootInner({ children }: PropsWithChildren) {
   expandViewport();
 
   useEffect(() => {
+    console.log(children);
     disableVerticalSwipes();
     setMiniAppHeaderColor("#121318");
   }, []);
 
   useBackButton();
 
-  return <>{children}</>;
+  return <Loader spinner />;
 }
 
 export function Root(props: PropsWithChildren) {
