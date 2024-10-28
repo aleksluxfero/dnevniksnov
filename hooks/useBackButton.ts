@@ -8,28 +8,32 @@ import {
   offBackButtonClick,
   onBackButtonClick,
   showBackButton,
+  useSignal,
 } from "@telegram-apps/sdk-react";
 
 export const useBackButton = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const backButtonMounted = useSignal(isBackButtonMounted);
 
   useEffect(() => {
     if (isBackButtonSupported() && pathname !== "/") {
       const handleBackButtonClick = () => {
         router.push("/");
       };
-      if (!isBackButtonMounted()) {
+      if (!backButtonMounted) {
         mountBackButton();
       }
 
-      showBackButton();
-      onBackButtonClick(handleBackButtonClick);
+      if (backButtonMounted) {
+        showBackButton();
+        onBackButtonClick(handleBackButtonClick);
+      }
 
       return () => {
         offBackButtonClick(handleBackButtonClick);
         hideBackButton();
       };
     }
-  }, [pathname, router]);
+  }, [backButtonMounted, pathname, router]);
 };
