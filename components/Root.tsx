@@ -20,7 +20,7 @@ function RootInner({ children }: PropsWithChildren) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useTelegramMock();
   }
-
+  expandViewport();
   init();
   mountMiniApp();
   mountViewport();
@@ -29,7 +29,6 @@ function RootInner({ children }: PropsWithChildren) {
   console.log(children);
 
   useEffect(() => {
-    expandViewport();
     disableVerticalSwipes();
     setMiniAppHeaderColor("#121318");
   }, []);
