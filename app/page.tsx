@@ -7,14 +7,18 @@ import { Loader } from "@/components/loader/app-loader";
 export default function Home() {
   const [data, setData] = useState("");
   const initData = useLaunchParams();
+  const userId = initData.initData?.user?.id;
   useEffect(() => {
-    console.log(initData);
-    if (initData.initData?.user?.id) {
-      setTimeout(() => {
+    if (userId) {
+      console.log(userId);
+      const timeoutId = setTimeout(() => {
         setData("Привет");
       }, 3000);
+      return () => {
+        clearTimeout(timeoutId);
+      };
     }
-  }, [initData]);
+  }, [userId]);
 
   if (!data) {
     return <Loader />;
