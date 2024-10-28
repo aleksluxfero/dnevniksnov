@@ -9,8 +9,6 @@ import {
   setMiniAppHeaderColor,
   expandViewport,
   mountViewport,
-  isSwipeBehaviorMounted,
-  isViewportMounted,
 } from "@telegram-apps/sdk-react";
 import { useTelegramMock } from "@/hooks/useTelegramMock";
 import { useBackButton } from "@/hooks/useBackButton";
