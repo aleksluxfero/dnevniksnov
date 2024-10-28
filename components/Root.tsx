@@ -20,6 +20,7 @@ import {
 } from "@telegram-apps/sdk-react";
 import { useTelegramMock } from "@/hooks/useTelegramMock";
 import { useBackButton } from "@/hooks/useBackButton";
+import { Loader } from "@/components/loader/app-loader";
 
 function RootInner({ children }: PropsWithChildren) {
   // Mock Telegram environment in development mode if needed.
@@ -40,8 +41,8 @@ function RootInner({ children }: PropsWithChildren) {
     console.log("Miniapp", miniAppMounted);
     if (!miniAppMounted) {
       mountMiniApp();
-      miniAppReady();
     } else {
+      miniAppReady();
       setMiniAppHeaderColor("#121318");
     }
   }, [miniAppMounted]);
@@ -77,6 +78,10 @@ function RootInner({ children }: PropsWithChildren) {
   }, [expandedViewPort, stableViewport, swipeBehavior]);
 
   useBackButton();
+
+  if (!miniAppMounted && expandedViewPort) {
+    return <Loader />;
+  }
 
   return <>{children}</>;
 }
