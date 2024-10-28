@@ -9,8 +9,6 @@ import {
   setMiniAppHeaderColor,
   expandViewport,
   mountViewport,
-  isViewportMounted,
-  isSwipeBehaviorMounted,
   unmountSwipeBehavior,
   unmountViewport,
 } from "@telegram-apps/sdk-react";
