@@ -1,6 +1,6 @@
 .loader {
-  width: 36px;
-  height: 36px;
+  width: 42px;
+  height: 42px;
   display: inline-block;
   position: relative;
 }
@@ -8,8 +8,8 @@
 .loader::before {
   content: '';
   box-sizing: border-box;
-  width: 36px;
-  height: 36px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   border: 2px solid #FFF;
   position: absolute;

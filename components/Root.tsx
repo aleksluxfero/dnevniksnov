@@ -8,6 +8,9 @@ import {
   mountMiniApp,
   setMiniAppHeaderColor,
   expandViewport,
+  mountViewport,
+  isViewportMounted,
+  isSwipeBehaviorMounted,
 } from "@telegram-apps/sdk-react";
 import { useTelegramMock } from "@/hooks/useTelegramMock";
 import { useBackButton } from "@/hooks/useBackButton";
@@ -22,12 +25,17 @@ function RootInner({ children }: PropsWithChildren) {
 
   init();
   mountMiniApp();
+  mountViewport();
   mountSwipeBehavior();
-  expandViewport();
 
   useEffect(() => {
     console.log(children);
-    disableVerticalSwipes();
+    if (isViewportMounted()) {
+      expandViewport();
+    }
+    if (isSwipeBehaviorMounted()) {
+      disableVerticalSwipes();
+    }
     setMiniAppHeaderColor("#121318");
   }, []);
 
