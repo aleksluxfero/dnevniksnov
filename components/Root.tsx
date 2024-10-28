@@ -36,6 +36,7 @@ function RootInner({ children }: PropsWithChildren) {
     }
 
     if (expandedViewPort) {
+      console.log("dads", expandedViewPort);
       disableVerticalSwipes();
     }
     setMiniAppHeaderColor("#121318");
