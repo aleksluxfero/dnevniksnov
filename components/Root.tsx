@@ -1,5 +1,5 @@
 "use client";
-import { PropsWithChildren, useEffect } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import { useDidMount } from "@/hooks/useDidMount";
 import {
   init,
@@ -9,9 +9,11 @@ import {
   setMiniAppHeaderColor,
   expandViewport,
   mountViewport,
+  isViewportExpanded,
 } from "@telegram-apps/sdk-react";
 import { useTelegramMock } from "@/hooks/useTelegramMock";
 import { useBackButton } from "@/hooks/useBackButton";
+import { Loader } from "@/components/loader/app-loader";
 
 function RootInner({ children }: PropsWithChildren) {
   // Mock Telegram environment in development mode if needed.
@@ -19,6 +21,9 @@ function RootInner({ children }: PropsWithChildren) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useTelegramMock();
   }
+
+  const [data, setData] = useState<string>("");
+  const [isSendData, setIsSendData] = useState(false);
 
   useEffect(() => {
     init();
@@ -30,7 +35,25 @@ function RootInner({ children }: PropsWithChildren) {
     setMiniAppHeaderColor("#121318");
   }, []);
 
+  useEffect(() => {
+    console.log(isViewportExpanded());
+    setIsSendData(true);
+    const timeoutId = setTimeout(() => {
+      setData("ok");
+      setIsSendData(false);
+    }, 1000);
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
+
   useBackButton();
+
+  console.log(data);
+
+  if (isSendData && isViewportExpanded()) {
+    return <Loader />;
+  }
 
   return <>{children}</>;
 }
