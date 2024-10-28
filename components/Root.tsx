@@ -12,9 +12,6 @@ import {
   isViewportStable,
   isViewportMounted,
   isViewportExpanded,
-  viewportHeight,
-  viewportStableHeight,
-  viewportState,
 } from "@telegram-apps/sdk-react";
 import { useTelegramMock } from "@/hooks/useTelegramMock";
 import { useBackButton } from "@/hooks/useBackButton";
