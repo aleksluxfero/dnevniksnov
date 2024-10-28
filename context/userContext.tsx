@@ -20,13 +20,12 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider: FC<PropsWithChildren> = ({ children }) => {
   const [user, setUser] = useState<LaunchParams | undefined>();
-
+  const lp = useLaunchParams();
   useEffect(() => {
     if (!user) {
-      const userData = useLaunchParams();
-      setUser(userData);
+      setUser(lp);
     }
-  }, [user]);
+  }, [lp, user]);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
