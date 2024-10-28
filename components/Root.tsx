@@ -35,8 +35,12 @@ function RootInner({ children }: PropsWithChildren) {
   useEffect(() => {
     console.log("viewport", viewportMounted);
     console.log("swipe", swipeBehaviorMounted);
-    expandViewport();
-    disableVerticalSwipes();
+    if (viewportMounted) {
+      expandViewport();
+    }
+    if (swipeBehaviorMounted) {
+      disableVerticalSwipes();
+    }
     setMiniAppHeaderColor("#121318");
     return () => {
       unmountSwipeBehavior();
