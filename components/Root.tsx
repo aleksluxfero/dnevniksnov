@@ -54,14 +54,7 @@ function RootInner({ children }: PropsWithChildren) {
 
   useBackButton();
 
-  return (
-    <>
-      {vh && vh}
-      {vsh && vsh}
-      {vs && vs}
-      {children}
-    </>
-  );
+  return <>{children}</>;
 }
 
 export function Root(props: PropsWithChildren) {
