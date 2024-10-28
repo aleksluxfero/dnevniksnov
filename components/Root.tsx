@@ -29,10 +29,7 @@ function RootInner({ children }: PropsWithChildren) {
   mountSwipeBehavior();
 
   useEffect(() => {
-    console.log(children);
-    if (isViewportMounted()) {
-      expandViewport();
-    }
+    expandViewport();
     if (isSwipeBehaviorMounted()) {
       disableVerticalSwipes();
     }
