@@ -10,6 +10,7 @@ import {
   expandViewport,
   mountViewport,
   isViewportExpanded,
+  useSignal,
 } from "@telegram-apps/sdk-react";
 import { useTelegramMock } from "@/hooks/useTelegramMock";
 import { useBackButton } from "@/hooks/useBackButton";
@@ -21,7 +22,7 @@ function RootInner({ children }: PropsWithChildren) {
     useTelegramMock();
   }
 
-  const expandedViewPort = isViewportExpanded();
+  const expandedViewPort = useSignal(isViewportExpanded);
 
   useEffect(() => {
     console.log("effect");
@@ -33,6 +34,10 @@ function RootInner({ children }: PropsWithChildren) {
     disableVerticalSwipes();
 
     setMiniAppHeaderColor("#121318");
+  }, []);
+
+  useEffect(() => {
+    console.log(expandedViewPort);
   }, [expandedViewPort]);
 
   useBackButton();
