@@ -4,6 +4,7 @@ import { useDidMount } from "@/hooks/useDidMount";
 import {
   init,
   disableVerticalSwipes,
+  enableVerticalSwipes,
   mountSwipeBehavior,
   mountMiniApp,
   setMiniAppHeaderColor,
@@ -11,7 +12,6 @@ import {
   mountViewport,
   isViewportExpanded,
   useSignal,
-  enableVerticalSwipes,
   isViewportStable,
   isViewportMounted,
   isMiniAppMounted,
@@ -22,22 +22,23 @@ import { useTelegramMock } from "@/hooks/useTelegramMock";
 import { useBackButton } from "@/hooks/useBackButton";
 
 function RootInner({ children }: PropsWithChildren) {
-  // Mock Telegram environment in development mode if needed.
-  if (process.env.NODE_ENV === "development") {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useTelegramMock();
-  }
-
-  init();
+  // Инициализация SDK и мока окружения в режиме разработки
+  useEffect(() => {
+    if (process.env.NODE_ENV === "development") {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useTelegramMock();
+    }
+    init();
+  }, []);
 
   const expandedViewPort = useSignal(isViewportExpanded);
   const stableViewport = useSignal(isViewportStable);
   const viewportMounted = useSignal(isViewportMounted);
   const miniAppMounted = useSignal(isMiniAppMounted);
-  const swipeBehavior = useSignal(isSwipeBehaviorMounted);
+  const swipeBehaviorMounted = useSignal(isSwipeBehaviorMounted);
 
+  // Монтирование мини-приложения и установка цвета хедера
   useEffect(() => {
-    console.log("Miniapp", miniAppMounted);
     if (!miniAppMounted) {
       mountMiniApp();
     } else {
@@ -46,15 +47,15 @@ function RootInner({ children }: PropsWithChildren) {
     }
   }, [miniAppMounted]);
 
+  // Монтирование поведения свайпов
   useEffect(() => {
-    console.log("swipe behavior", swipeBehavior);
-    if (!swipeBehavior) {
+    if (!swipeBehaviorMounted) {
       mountSwipeBehavior();
     }
-  }, [swipeBehavior]);
+  }, [swipeBehaviorMounted]);
 
+  // Монтирование и расширение вьюпорта
   useEffect(() => {
-    console.log("viewport", viewportMounted);
     if (!viewportMounted) {
       mountViewport();
     } else {
@@ -62,29 +63,22 @@ function RootInner({ children }: PropsWithChildren) {
     }
   }, [viewportMounted]);
 
+  // Управление вертикальными свайпами в зависимости от состояния вьюпорта и свайпов
   useEffect(() => {
-    console.log(
-      "disableVerticalSwipes",
-      swipeBehavior,
-      stableViewport,
-      expandedViewPort,
-    );
-    if (expandedViewPort && stableViewport && swipeBehavior) {
+    if (expandedViewPort && stableViewport && swipeBehaviorMounted) {
       disableVerticalSwipes();
     } else {
       enableVerticalSwipes();
     }
-  }, [expandedViewPort, stableViewport, swipeBehavior]);
+  }, [expandedViewPort, stableViewport, swipeBehaviorMounted]);
 
   useBackButton();
 
   return <>{children}</>;
 }
 
-export function Root(props: PropsWithChildren) {
-  // Unfortunately, Telegram Mini Apps does not allow us to use all features of the Server Side
-  // Rendering. That's why we are showing loader on the server side.
+export function Root({ children }: PropsWithChildren) {
   const didMount = useDidMount();
 
-  return didMount ? <RootInner {...props} /> : null;
+  return didMount ? <RootInner>{children}</RootInner> : null;
 }
