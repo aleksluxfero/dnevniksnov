@@ -23,9 +23,9 @@ function RootInner({ children }: PropsWithChildren) {
   init();
   mountMiniApp();
   mountViewport();
+  expandViewport();
   mountSwipeBehavior();
   console.log(children);
-  expandViewport();
   disableVerticalSwipes();
   setMiniAppHeaderColor("#121318");
   useBackButton();
