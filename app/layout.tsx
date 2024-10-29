@@ -19,7 +19,7 @@ export default function RootLayout({
       <body>
         <Root>
           <div className="flex flex-col relative">
-            <main>{children}</main>
+            <main className="min-h-screen">{children}</main>
             <div className="fixed w-full bottom-0 left-0">
               <Navigation />
             </div>

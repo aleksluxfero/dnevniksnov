@@ -4,7 +4,6 @@ import {
   init as initSDK,
   swipeBehavior,
   viewport,
-  backButton,
   initData,
 } from "@telegram-apps/sdk-react";
 
@@ -26,10 +25,6 @@ export function init(debug: boolean): void {
   void viewport.mount().catch((e) => {
     console.error("Something went wrong mounting the viewport", e);
   });
-
-  if (backButton.isSupported()) {
-    backButton.mount();
-  }
 
   // Add Eruda if needed.
   if (debug) {

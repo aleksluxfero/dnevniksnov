@@ -7,6 +7,9 @@ import { useLaunchParams } from "@telegram-apps/sdk-react";
 import { useClientOnce } from "@/hooks/useClientOnce";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { ErrorPage } from "@/components/ErrorPage";
+import { useBackButton } from "@/hooks/useBackButton";
+import { Loader } from "@/components/loader/app-loader";
+import { AppRoot } from "@telegram-apps/telegram-ui";
 
 function RootInner({ children }: PropsWithChildren) {
   const isDev = process.env.NODE_ENV === "development";
@@ -19,9 +22,11 @@ function RootInner({ children }: PropsWithChildren) {
   const lp = useLaunchParams();
   const debug = isDev || lp.startParam === "debug";
 
-  useClientOnce(() => init(debug));
+  useClientOnce(() => {
+    init(debug);
+  });
 
-  /*useBackButton();*/
+  useBackButton();
 
   return <>{children}</>;
 }
@@ -34,6 +39,6 @@ export function Root(props: PropsWithChildren) {
       <RootInner {...props} />
     </ErrorBoundary>
   ) : (
-    <div className="root__loading">Loading</div>
+    <Loader />
   );
 }
