@@ -3,7 +3,6 @@ import "./globals.css";
 import { ReactNode } from "react";
 import { Root } from "@/components/Root";
 import { Navigation } from "@/components/navigation";
-import { UserProvider } from "@/context/userContext";
 
 export const metadata: Metadata = {
   title: "Дневник снов",
@@ -19,14 +18,12 @@ export default function RootLayout({
     <html lang="ru">
       <body>
         <Root>
-          <UserProvider>
-            <div className="flex flex-col relative">
-              <main>{children}</main>
-              <div className="fixed w-full bottom-0 left-0">
-                <Navigation />
-              </div>
+          <div className="flex flex-col relative">
+            <main>{children}</main>
+            <div className="fixed w-full bottom-0 left-0">
+              <Navigation />
             </div>
-          </UserProvider>
+          </div>
         </Root>
       </body>
     </html>

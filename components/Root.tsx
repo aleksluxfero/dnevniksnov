@@ -1,84 +1,39 @@
 "use client";
-import { PropsWithChildren, useEffect } from "react";
+import { PropsWithChildren } from "react";
 import { useDidMount } from "@/hooks/useDidMount";
-import {
-  init,
-  disableVerticalSwipes,
-  enableVerticalSwipes,
-  mountSwipeBehavior,
-  mountMiniApp,
-  setMiniAppHeaderColor,
-  expandViewport,
-  mountViewport,
-  isViewportExpanded,
-  useSignal,
-  isViewportStable,
-  isViewportMounted,
-  isMiniAppMounted,
-  miniAppReady,
-  isSwipeBehaviorMounted,
-} from "@telegram-apps/sdk-react";
 import { useTelegramMock } from "@/hooks/useTelegramMock";
-import { useBackButton } from "@/hooks/useBackButton";
+import { init } from "@/core/init";
+import { useLaunchParams } from "@telegram-apps/sdk-react";
+import { useClientOnce } from "@/hooks/useClientOnce";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { ErrorPage } from "@/components/ErrorPage";
 
 function RootInner({ children }: PropsWithChildren) {
-  // Инициализация SDK и мока окружения в режиме разработки
-  useEffect(() => {
-    if (process.env.NODE_ENV === "development") {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useTelegramMock();
-    }
-    init();
-  }, []);
+  const isDev = process.env.NODE_ENV === "development";
+  // Mock Telegram environment in development mode if needed.
+  if (isDev) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useTelegramMock();
+  }
 
-  const expandedViewPort = useSignal(isViewportExpanded);
-  const stableViewport = useSignal(isViewportStable);
-  const viewportMounted = useSignal(isViewportMounted);
-  const miniAppMounted = useSignal(isMiniAppMounted);
-  const swipeBehaviorMounted = useSignal(isSwipeBehaviorMounted);
+  const lp = useLaunchParams();
+  const debug = isDev || lp.startParam === "debug";
 
-  // Монтирование мини-приложения и установка цвета хедера
-  useEffect(() => {
-    if (!miniAppMounted) {
-      mountMiniApp();
-    } else {
-      miniAppReady();
-      setMiniAppHeaderColor("#121318");
-    }
-  }, [miniAppMounted]);
+  useClientOnce(() => init(debug));
 
-  // Монтирование поведения свайпов
-  useEffect(() => {
-    if (!swipeBehaviorMounted) {
-      mountSwipeBehavior();
-    }
-  }, [swipeBehaviorMounted]);
-
-  // Монтирование и расширение вьюпорта
-  useEffect(() => {
-    if (!viewportMounted) {
-      mountViewport();
-    } else {
-      expandViewport();
-    }
-  }, [viewportMounted]);
-
-  // Управление вертикальными свайпами в зависимости от состояния вьюпорта и свайпов
-  useEffect(() => {
-    if (expandedViewPort && stableViewport && swipeBehaviorMounted) {
-      disableVerticalSwipes();
-    } else {
-      enableVerticalSwipes();
-    }
-  }, [expandedViewPort, stableViewport, swipeBehaviorMounted]);
-
-  useBackButton();
+  /*useBackButton();*/
 
   return <>{children}</>;
 }
 
-export function Root({ children }: PropsWithChildren) {
+export function Root(props: PropsWithChildren) {
   const didMount = useDidMount();
 
-  return didMount ? <RootInner>{children}</RootInner> : null;
+  return didMount ? (
+    <ErrorBoundary fallback={ErrorPage}>
+      <RootInner {...props} />
+    </ErrorBoundary>
+  ) : (
+    <div className="root__loading">Loading</div>
+  );
 }
