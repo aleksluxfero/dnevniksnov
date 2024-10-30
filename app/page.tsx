@@ -7,6 +7,7 @@ export default function Home() {
     <Page back={false}>
       <h1>Home Page</h1>
       <Link href="/dreams">Сны</Link>
+      <Link href="https://ya.ru">Yandex</Link>
     </Page>
   );
 }
