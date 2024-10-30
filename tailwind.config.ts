@@ -13,7 +13,7 @@ const config: Config = {
         foreground: "var(--foreground)",
       },
       backgroundImage: {
-        bg: "url(./public/assets/img/bg.jpg)",
+        bg: "url(/assets/img/bg.jpg)",
       },
     },
   },
