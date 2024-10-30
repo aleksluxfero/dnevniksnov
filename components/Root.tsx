@@ -1,15 +1,37 @@
 "use client";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useEffect } from "react";
 import { useDidMount } from "@/hooks/useDidMount";
 import { useTelegramMock } from "@/hooks/useTelegramMock";
-import { init } from "@/core/init";
-import { useLaunchParams } from "@telegram-apps/sdk-react";
-import { useClientOnce } from "@/hooks/useClientOnce";
+import {
+  isBackButtonMounted,
+  isMiniAppMounted,
+  isSwipeBehaviorMounted,
+  isViewportExpanded,
+  isViewportMounted,
+  isViewportStable,
+  useLaunchParams,
+  useSignal,
+  init,
+  mountMiniApp,
+  miniAppReady,
+  initData,
+  setMiniAppHeaderColor,
+  mountSwipeBehavior,
+  mountViewport,
+  expandViewport,
+  disableVerticalSwipes,
+  enableVerticalSwipes,
+  mountBackButton,
+  $debug,
+  isBackButtonSupported,
+} from "@telegram-apps/sdk-react";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { ErrorPage } from "@/components/ErrorPage";
 import { Loader } from "@/components/Loader/Loader";
 
 function RootInner({ children }: PropsWithChildren) {
+  init();
+
   const isDev = process.env.NODE_ENV === "development";
   // Mock Telegram environment in development mode if needed.
   if (isDev) {
@@ -20,9 +42,57 @@ function RootInner({ children }: PropsWithChildren) {
   const lp = useLaunchParams();
   const debug = isDev || lp.startParam === "debug";
 
-  useClientOnce(() => {
-    init(debug);
-  });
+  $debug.set(debug);
+
+  if (debug) {
+    import("eruda").then((lib) => lib.default.init()).catch(console.error);
+  }
+
+  const expandedViewPort = useSignal(isViewportExpanded);
+  const stableViewport = useSignal(isViewportStable);
+  const viewportMounted = useSignal(isViewportMounted);
+  const miniAppMounted = useSignal(isMiniAppMounted);
+  const swipeBehaviorMounted = useSignal(isSwipeBehaviorMounted);
+  const backButtonMounted = useSignal(isBackButtonMounted);
+
+  useEffect(() => {
+    if (!miniAppMounted) {
+      mountMiniApp();
+    } else {
+      miniAppReady();
+      initData.restore();
+      setMiniAppHeaderColor("#121318");
+    }
+  }, [miniAppMounted]);
+
+  // Монтирование поведения свайпов
+  useEffect(() => {
+    if (!swipeBehaviorMounted) {
+      mountSwipeBehavior();
+    }
+  }, [swipeBehaviorMounted]);
+  // Монтирование и расширение вьюпорта
+  useEffect(() => {
+    if (!viewportMounted) {
+      mountViewport();
+    } else {
+      expandViewport();
+    }
+  }, [viewportMounted]);
+  // Управление вертикальными свайпами в зависимости от состояния вьюпорта и свайпов
+  useEffect(() => {
+    if (expandedViewPort && stableViewport && swipeBehaviorMounted) {
+      disableVerticalSwipes();
+    } else {
+      enableVerticalSwipes();
+    }
+  }, [expandedViewPort, stableViewport, swipeBehaviorMounted]);
+
+  useEffect(() => {
+    if (isBackButtonSupported() && !backButtonMounted) {
+      mountBackButton();
+    }
+  }, [backButtonMounted]);
 
   return <>{children}</>;
 }
