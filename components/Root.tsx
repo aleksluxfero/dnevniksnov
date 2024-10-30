@@ -7,7 +7,7 @@ import { useLaunchParams } from "@telegram-apps/sdk-react";
 import { useClientOnce } from "@/hooks/useClientOnce";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { ErrorPage } from "@/components/ErrorPage";
-import { Loader } from "@/components/loader/Loader";
+import { Loader } from "@/components/Loader/Loader";
 
 function RootInner({ children }: PropsWithChildren) {
   const isDev = process.env.NODE_ENV === "development";
