@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
 import "./globals.css";
 import { ReactNode } from "react";
 import { Root } from "@/components/Root";
 import { Navigation } from "@/components/navigation";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Дневник снов",
