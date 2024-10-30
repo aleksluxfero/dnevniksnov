@@ -104,7 +104,5 @@ export function Root(props: PropsWithChildren) {
     <ErrorBoundary fallback={ErrorPage}>
       <RootInner {...props} />
     </ErrorBoundary>
-  ) : (
-    <Loader />
-  );
+  ) : null;
 }
