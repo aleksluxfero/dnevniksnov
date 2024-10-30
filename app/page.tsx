@@ -1,16 +1,12 @@
 "use client";
-import Link from "next/link";
-import { useEffect } from "react";
+import { Page } from "@/components/Page";
+import { Link } from "@/components/Link/Link";
 
 export default function Home() {
-  useEffect(() => {
-    console.log("effect");
-  }, []);
-
   return (
-    <div>
+    <Page back={false}>
       <h1>Home Page</h1>
       <Link href="/dreams">Сны</Link>
-    </div>
+    </Page>
   );
 }

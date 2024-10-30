@@ -1,8 +1,9 @@
 "use client";
 
 import { type InvoiceStatus, openInvoice } from "@telegram-apps/sdk-react";
-import Link from "next/link";
 import { createInvoiceLink } from "@/services/invoice.service";
+import { Page } from "@/components/Page";
+import { Link } from "@/components/Link/Link";
 
 export default function TestInvoice() {
   const startPay = async () => {
@@ -14,7 +15,7 @@ export default function TestInvoice() {
   };
 
   return (
-    <div>
+    <Page>
       <h1>Dreams</h1>
       <Link href={"/"}>Главная</Link>
       <p>
@@ -22,6 +23,6 @@ export default function TestInvoice() {
         quas?
       </p>
       <button onClick={() => startPay()}>Купить</button>
-    </div>
+    </Page>
   );
 }
