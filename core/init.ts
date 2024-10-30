@@ -20,6 +20,8 @@ import {
   disableVerticalSwipes,
   enableVerticalSwipes,
   backButton,
+  isBackButtonMounted,
+  mountBackButton,
 } from "@telegram-apps/sdk-react";
 import { useEffect } from "react";
 
@@ -32,6 +34,7 @@ export function init(debug: boolean): void {
   const viewportMounted = useSignal(isViewportMounted);
   const miniAppMounted = useSignal(isMiniAppMounted);
   const swipeBehaviorMounted = useSignal(isSwipeBehaviorMounted);
+  const backButtonMounted = useSignal(isBackButtonMounted);
   // Set @telegram-apps/sdk-react debug mode.
   $debug.set(debug);
 
@@ -75,7 +78,9 @@ export function init(debug: boolean): void {
 
   useEffect(() => {
     if (backButton.isSupported()) {
-      backButton.mount();
+      if (!backButtonMounted) {
+        mountBackButton();
+      }
     }
   }, []);
 
