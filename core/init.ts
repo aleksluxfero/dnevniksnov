@@ -21,11 +21,13 @@ export function init(debug: boolean): void {
 
   // Mount all components used in the project.
   miniApp.mount();
-  swipeBehavior.mount();
   initData.restore();
   void viewport.mount().catch((e) => {
     console.error("Something went wrong mounting the viewport", e);
   });
+  viewport.expand();
+  swipeBehavior.mount();
+  swipeBehavior.enableVertical();
 
   // Add Eruda if needed.
   if (debug) {
