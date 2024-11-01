@@ -3,15 +3,15 @@ import {
   ChartPie,
   CircleUser,
   NotebookPen,
-  List,
   CirclePlus,
+  Newspaper,
 } from "lucide-react";
 
 const menuNav = [
   {
     label: "Дневник",
     icon: <NotebookPen size={20} />,
-    link: "/",
+    link: "/diary",
     alias: "diary",
   },
   {
@@ -23,10 +23,15 @@ const menuNav = [
   {
     label: "Записать",
     icon: <CirclePlus size={28} />,
-    link: "/dreams/add",
+    link: "/diary/add",
     alias: "add-dreams",
   },
-  { label: "Лента", icon: <List size={20} />, link: "/feed", alias: "feed" },
+  {
+    label: "Лента",
+    icon: <Newspaper size={20} />,
+    link: "/feed",
+    alias: "feed",
+  },
   {
     label: "Профиль",
     icon: <CircleUser size={20} />,

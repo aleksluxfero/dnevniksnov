@@ -3,7 +3,6 @@ import { PropsWithChildren, useEffect } from "react";
 import { useDidMount } from "@/hooks/useDidMount";
 import { useTelegramMock } from "@/hooks/useTelegramMock";
 import {
-  isBackButtonMounted,
   isMiniAppMounted,
   isSwipeBehaviorMounted,
   isViewportExpanded,
@@ -21,12 +20,14 @@ import {
   expandViewport,
   disableVerticalSwipes,
   enableVerticalSwipes,
-  mountBackButton,
   $debug,
-  isBackButtonSupported,
+  miniApp,
 } from "@telegram-apps/sdk-react";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { ErrorPage } from "@/components/ErrorPage";
+import { clsx } from "clsx";
+import { useBackButton } from "@/hooks/useBackButton";
+import { Loader } from "@/components/Loader/Loader";
 
 function RootInner({ children }: PropsWithChildren) {
   const isWeb = false;
@@ -41,6 +42,11 @@ function RootInner({ children }: PropsWithChildren) {
 
   const lp = useLaunchParams();
   const debug = isDev || lp.startParam === "debug";
+  const isDark = useSignal(miniApp.isDark);
+  const initDataUser = useSignal(initData.user);
+
+  console.log(isDark);
+  console.log(initDataUser);
 
   $debug.set(debug);
 
@@ -53,7 +59,6 @@ function RootInner({ children }: PropsWithChildren) {
   const viewportMounted = useSignal(isViewportMounted);
   const miniAppMounted = useSignal(isMiniAppMounted);
   const swipeBehaviorMounted = useSignal(isSwipeBehaviorMounted);
-  const backButtonMounted = useSignal(isBackButtonMounted);
 
   useEffect(() => {
     if (!miniAppMounted) {
@@ -90,13 +95,21 @@ function RootInner({ children }: PropsWithChildren) {
     }
   }, [expandedViewPort, stableViewport, swipeBehaviorMounted]);
 
-  useEffect(() => {
-    if (isBackButtonSupported() && !backButtonMounted) {
-      mountBackButton();
-    }
-  }, [backButtonMounted]);
+  useBackButton();
 
-  return <>{children}</>;
+  if (!initDataUser) {
+    return <Loader />;
+  }
+
+  return (
+    <div
+      className={clsx({
+        dark: isDark,
+      })}
+    >
+      {children}
+    </div>
+  );
 }
 
 export function Root(props: PropsWithChildren) {

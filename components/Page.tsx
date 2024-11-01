@@ -1,8 +1,6 @@
 "use client";
 
-import { backButton } from "@telegram-apps/sdk-react";
-import { DetailedHTMLProps, HTMLAttributes, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { DetailedHTMLProps, HTMLAttributes } from "react";
 import { Navigation } from "@/components/Navigation";
 
 interface PageProps
@@ -11,29 +9,7 @@ interface PageProps
   nav: boolean;
 }
 
-export function Page({
-  back = true,
-  className,
-  children,
-  nav,
-  ...props
-}: PageProps) {
-  const router = useRouter();
-
-  useEffect(() => {
-    if (back) {
-      backButton.show();
-    } else {
-      backButton.hide();
-    }
-  }, [back]);
-
-  useEffect(() => {
-    return backButton.onClick(() => {
-      router.back();
-    });
-  }, [router]);
-
+export function Page({ className, children, nav, ...props }: PageProps) {
   return (
     <div {...props} className={className}>
       {children}
