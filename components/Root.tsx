@@ -27,7 +27,6 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { ErrorPage } from "@/components/ErrorPage";
 import { clsx } from "clsx";
 import { useBackButton } from "@/hooks/useBackButton";
-import { Loader } from "@/components/Loader/Loader";
 
 function RootInner({ children }: PropsWithChildren) {
   const isWeb = false;
@@ -43,10 +42,8 @@ function RootInner({ children }: PropsWithChildren) {
   const lp = useLaunchParams();
   const debug = isDev || lp.startParam === "debug";
   const isDark = useSignal(miniApp.isDark);
-  const initDataUser = useSignal(initData.user);
 
   console.log(isDark);
-  console.log(initDataUser);
 
   $debug.set(debug);
 
@@ -96,10 +93,6 @@ function RootInner({ children }: PropsWithChildren) {
   }, [expandedViewPort, stableViewport, swipeBehaviorMounted]);
 
   useBackButton();
-
-  if (!initDataUser) {
-    return <Loader />;
-  }
 
   return (
     <div
