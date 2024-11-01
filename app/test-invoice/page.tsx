@@ -15,7 +15,7 @@ export default function TestInvoice() {
   };
 
   return (
-    <Page>
+    <Page nav={true}>
       <h1>Dreams</h1>
       <Link href={"/"}>Главная</Link>
       <p>
