@@ -5,7 +5,6 @@ import { Navigation } from "@/components/Navigation";
 
 interface PageProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-  back?: boolean;
   nav: boolean;
 }
 
