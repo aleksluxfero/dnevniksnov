@@ -25,7 +25,6 @@ import {
 } from "@telegram-apps/sdk-react";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { ErrorPage } from "@/components/ErrorPage";
-import { clsx } from "clsx";
 import { useBackButton } from "@/hooks/useBackButton";
 
 function RootInner({ children }: PropsWithChildren) {
@@ -92,17 +91,19 @@ function RootInner({ children }: PropsWithChildren) {
     }
   }, [expandedViewPort, stableViewport, swipeBehaviorMounted]);
 
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.remove("light");
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.add("light");
+    }
+  }, [isDark]);
+
   useBackButton();
 
-  return (
-    <div
-      className={clsx({
-        dark: isDark,
-      })}
-    >
-      {children}
-    </div>
-  );
+  return <>{children}</>;
 }
 
 export function Root(props: PropsWithChildren) {

@@ -56,14 +56,14 @@
 }
 
 
-body {
+body, html {
   font-family: var(--font-default);
   background-color: var(--background);
   color: var(--text);
 }
 
 @media (prefers-color-scheme: dark) {
-  body {
+  body, html {
     background-color: var(--background);
     color: var(--text);
   }
