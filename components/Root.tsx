@@ -42,8 +42,6 @@ function RootInner({ children }: PropsWithChildren) {
   const debug = isDev || lp.startParam === "debug";
   const isDark = useSignal(miniApp.isDark);
 
-  console.log(isDark);
-
   $debug.set(debug);
 
   if (debug) {

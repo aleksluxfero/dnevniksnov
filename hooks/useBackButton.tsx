@@ -30,7 +30,6 @@ export const useBackButton = () => {
 
   useEffect(() => {
     return backButton.onClick(() => {
-      console.log("unmount");
       router.back();
     });
   }, [router]);
