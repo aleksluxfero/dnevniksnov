@@ -29,14 +29,15 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { ErrorPage } from "@/components/ErrorPage";
 
 function RootInner({ children }: PropsWithChildren) {
-  init();
-
+  const isWeb = false;
   const isDev = process.env.NODE_ENV === "development";
   // Mock Telegram environment in development mode if needed.
   if (isDev) {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useTelegramMock();
   }
+
+  init();
 
   const lp = useLaunchParams();
   const debug = isDev || lp.startParam === "debug";
@@ -72,12 +73,14 @@ function RootInner({ children }: PropsWithChildren) {
   }, [swipeBehaviorMounted]);
   // Монтирование и расширение вьюпорта
   useEffect(() => {
-    if (!viewportMounted) {
-      mountViewport();
-    } else {
-      expandViewport();
+    if (!isWeb) {
+      if (!viewportMounted) {
+        mountViewport();
+      } else {
+        expandViewport();
+      }
     }
-  }, [viewportMounted]);
+  }, [isWeb, viewportMounted]);
   // Управление вертикальными свайпами в зависимости от состояния вьюпорта и свайпов
   useEffect(() => {
     if (expandedViewPort && stableViewport && swipeBehaviorMounted) {

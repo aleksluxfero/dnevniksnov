@@ -4,7 +4,7 @@ import { Link } from "@/components/Link/Link";
 
 export default function Dreams() {
   return (
-    <Page>
+    <Page nav={true}>
       <h1>Dreams</h1>
       <Link href={"/"}>Главная</Link>
       <p>

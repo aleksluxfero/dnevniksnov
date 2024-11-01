@@ -4,7 +4,7 @@ import { Link } from "@/components/Link/Link";
 
 export default function Home() {
   return (
-    <Page back={false}>
+    <Page back={false} nav={true}>
       <h1>Home Page</h1>
       <Link href="/dreams">Сны</Link>
       <Link href="https://ya.ru">Yandex</Link>
