@@ -11,11 +11,11 @@ export default function Home() {
           .map((_, i) => i + 1)
           .map((it) => {
             return (
-              <div key={it} className="flex flex-col space-y-3 px-4">
-                <Skeleton className="h-[125px] w-full rounded-xl bg-[#222]" />
+              <div key={it} className="flex flex-col space-y-3">
+                <Skeleton className="h-[125px] w-full rounded-xl bg-[#2e2e2e]" />
                 <div className="space-y-2">
-                  <Skeleton className="h-4 w-full bg-[#222]" />
-                  <Skeleton className="h-4 w-full bg-[#222]" />
+                  <Skeleton className="h-4 w-full bg-[#2e2e2e]" />
+                  <Skeleton className="h-4 w-full bg-[#2e2e2e]" />
                 </div>
               </div>
             );

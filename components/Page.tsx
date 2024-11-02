@@ -13,7 +13,7 @@ export function Page({ className, children, nav, ...props }: PageProps) {
   return (
     <div
       {...props}
-      className={cn(className, "py-4", {
+      className={cn(className, "p-4", {
         "pb-[80px]": nav,
       })}
     >
