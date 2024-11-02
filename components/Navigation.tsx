@@ -23,7 +23,7 @@ const menuNav = [
   {
     label: "",
     icon: <CirclePlus size={32} />,
-    link: "/diary/add",
+    link: "/diary",
     alias: "add-dreams",
   },
   {
