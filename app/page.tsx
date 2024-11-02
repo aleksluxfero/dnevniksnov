@@ -1,26 +1,39 @@
 "use client";
 import { Page } from "@/components/Page";
-import { Skeleton } from "@/components/ui/skeleton";
+import { useEffect, useState } from "react";
+import { DreamsLoader } from "@/components/DreamsLoader";
+import { cn } from "@/lib/utils";
 
 export default function Home() {
+  const [dreams, setDreams] = useState<string[] | null>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setDreams([]);
+      setIsLoading(false);
+    }, 3000);
+  }, []);
+
   return (
-    <Page nav={true}>
-      <div className="flex flex-col gap-4">
-        {Array(10)
-          .fill(0)
-          .map((_, i) => i + 1)
-          .map((it) => {
-            return (
-              <div key={it} className="flex flex-col space-y-3">
-                <Skeleton className="h-[125px] w-full rounded-xl bg-[#2e2e2e]" />
-                <div className="space-y-2">
-                  <Skeleton className="h-4 w-full bg-[#2e2e2e]" />
-                  <Skeleton className="h-4 w-full bg-[#2e2e2e]" />
-                </div>
-              </div>
-            );
-          })}
-      </div>
+    <Page
+      nav={true}
+      className={cn({
+        "p-0": !isLoading && (!dreams || !dreams.length),
+      })}
+    >
+      {isLoading && <DreamsLoader />}
+      {!isLoading && (!dreams || !dreams.length) && (
+        <div className="min-h-screen flex items-center justify-center">
+          Нет записей
+        </div>
+      )}
+      {!isLoading &&
+        dreams &&
+        dreams.map((it) => {
+          return <div key={it}>{it}</div>;
+        })}
     </Page>
   );
 }
