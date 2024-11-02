@@ -1,3 +1,4 @@
+"use client";
 import { useBackButton } from "@/hooks/useBackButton";
 
 const NotFoundPage = () => {
