@@ -21,8 +21,8 @@ const menuNav = [
     alias: "data",
   },
   {
-    label: "Записать",
-    icon: <CirclePlus size={28} />,
+    label: "",
+    icon: <CirclePlus size={32} />,
     link: "/diary/add",
     alias: "add-dreams",
   },
@@ -43,7 +43,7 @@ const menuNav = [
 export const Navigation = () => {
   return (
     <div className="fixed w-full bottom-0 left-0">
-      <div className="px-4 py-3 flex items-center justify-between bg-foreground">
+      <div className="px-4 py-2 flex items-center justify-between border-t border-t-card-foreground">
         {menuNav.map((menu) => {
           return (
             <div key={menu.alias}>
