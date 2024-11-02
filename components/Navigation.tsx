@@ -11,7 +11,7 @@ const menuNav = [
   {
     label: "Дневник",
     icon: <NotebookPen size={20} />,
-    link: "/diary",
+    link: "/",
     alias: "diary",
   },
   {
