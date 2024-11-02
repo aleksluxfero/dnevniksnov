@@ -1,9 +1,12 @@
 import { useEffect } from "react";
 import {
-  backButton,
+  hideBackButton,
   isBackButtonMounted,
   isBackButtonSupported,
   mountBackButton,
+  offBackButtonClick,
+  onBackButtonClick,
+  showBackButton,
   useSignal,
 } from "@telegram-apps/sdk-react";
 import { usePathname, useRouter } from "next/navigation";
@@ -15,22 +18,22 @@ export const useBackButton = () => {
   const pathName = usePathname();
 
   useEffect(() => {
-    if (isBackButtonSupported() && !backButtonMounted) {
-      mountBackButton();
+    console.log(pathName);
+    if (isBackButtonSupported() && pathName !== "/") {
+      const handleBackButtonClick = () => {
+        router.push("/");
+      };
+      if (!backButtonMounted) {
+        mountBackButton();
+      }
+      if (backButtonMounted) {
+        showBackButton();
+        onBackButtonClick(handleBackButtonClick);
+      }
+      return () => {
+        offBackButtonClick(handleBackButtonClick);
+        hideBackButton();
+      };
     }
-  }, [backButtonMounted]);
-
-  useEffect(() => {
-    if (backButtonMounted && pathName !== "/") {
-      backButton.show();
-    } else {
-      backButton.hide();
-    }
-  }, [backButtonMounted, pathName]);
-
-  useEffect(() => {
-    return backButton.onClick(() => {
-      router.back();
-    });
-  }, [router]);
+  }, [backButtonMounted, pathName, router]);
 };

@@ -42,7 +42,7 @@ function RootInner({ children }: PropsWithChildren) {
   const debug = isDev || lp.startParam === "debug";
   const isDark = useSignal(miniApp.isDark);
 
-  $debug.set(debug);
+  $debug.set(true);
 
   if (debug) {
     import("eruda").then((lib) => lib.default.init()).catch(console.error);
