@@ -9,10 +9,10 @@ export const DreamsLoader = () => {
         .map((it) => {
           return (
             <div key={it} className="flex flex-col space-y-3">
-              <Skeleton className="h-[125px] w-full rounded-xl bg-[#2e2e2e]" />
+              <Skeleton className="h-[125px] w-full rounded-xl bg-[#8c8c8c]" />
               <div className="space-y-2">
-                <Skeleton className="h-4 w-full bg-[#2e2e2e]" />
-                <Skeleton className="h-4 w-full bg-[#2e2e2e]" />
+                <Skeleton className="h-4 w-full bg-[#8c8c8c]" />
+                <Skeleton className="h-4 w-full bg-[#8c8c8c]" />
               </div>
             </div>
           );
