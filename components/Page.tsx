@@ -14,7 +14,7 @@ export function Page({ className, children, nav, ...props }: PageProps) {
     <div
       {...props}
       className={cn(
-        "p-4 min-h-screen",
+        "pt-4 pb-4 min-h-screen",
         {
           "pb-[80px]": nav,
         },

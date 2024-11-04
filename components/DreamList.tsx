@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Link } from "@/components/Link/Link";
 
 interface DreamListProps {
   dreams: Dream[];
@@ -17,19 +18,17 @@ interface DreamListProps {
 export const DreamList: FC<DreamListProps> = ({ dreams }) => {
   const dreamsEl = dreams.map((dream) => {
     return (
-      <Card
-        key={dream.id}
-        className="w-full bg-foreground text-[#f2f3f5] border-none"
-      >
-        <CardHeader>
-          <CardTitle className="line-clamp-1">{dream.title}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <CardDescription className="line-clamp-3 m-0 text-[#f2f3f5]">
-            {dream.description}
-          </CardDescription>
-        </CardContent>
-        {/*<CardFooter>
+      <Link key={dream.id} href={"/dreams/" + dream.id} className="w-full">
+        <Card className="w-full bg-foreground text-[#f2f3f5] border-none">
+          <CardHeader className="px-4">
+            <CardTitle className="line-clamp-1">{dream.title}</CardTitle>
+          </CardHeader>
+          <CardContent className="px-4">
+            <CardDescription className="line-clamp-3 m-0 text-[#99a2ad]">
+              {dream.description}
+            </CardDescription>
+          </CardContent>
+          {/*<CardFooter>
           <span>
             {dream.date.toLocaleDateString("ru-RU", {
               weekday: "long",
@@ -39,7 +38,8 @@ export const DreamList: FC<DreamListProps> = ({ dreams }) => {
             })}
           </span>
         </CardFooter>*/}
-      </Card>
+        </Card>
+      </Link>
     );
   });
 

@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import {
   ChartPie,
@@ -6,57 +7,92 @@ import {
   CirclePlus,
   Newspaper,
 } from "lucide-react";
-
-const menuNav = [
-  {
-    label: "Дневник",
-    icon: <NotebookPen size={20} />,
-    link: "/",
-    alias: "diary",
-  },
-  {
-    label: "Данные",
-    icon: <ChartPie size={20} />,
-    link: "/data",
-    alias: "data",
-  },
-  {
-    label: "",
-    icon: <CirclePlus size={32} />,
-    link: "/diary",
-    alias: "add-dreams",
-  },
-  {
-    label: "Лента",
-    icon: <Newspaper size={20} />,
-    link: "/feed",
-    alias: "feed",
-  },
-  {
-    label: "Профиль",
-    icon: <CircleUser size={20} />,
-    link: "/profile",
-    alias: "profile",
-  },
-];
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 export const Navigation = () => {
+  const pathname = usePathname();
   return (
     <div className="fixed w-full bottom-0 left-0 border-0 border-t border-t-gray-800">
       <div className="px-4 py-3 flex items-center justify-between bg-foreground">
-        {menuNav.map((menu) => {
-          return (
-            <div key={menu.alias}>
-              <Link
-                className="flex flex-col items-center gap-1"
-                href={menu.link}
-              >
-                <div>{menu.icon}</div>
-                <span className="text-xs">{menu.label}</span>
-              </Link>
+        <div>
+          <Link className="flex flex-col items-center gap-1" href="/">
+            <div>
+              <NotebookPen
+                size={20}
+                color={pathname === "/" ? "#1886ff" : "#f2f3f5"}
+              />
             </div>
-          );
-        })}
+            <span
+              className={cn("text-xs", {
+                "text-[#1886ff]": pathname === "/",
+              })}
+            >
+              Дневник
+            </span>
+          </Link>
+        </div>
+        <div>
+          <Link className="flex flex-col items-center gap-1" href="/data">
+            <div>
+              <ChartPie
+                size={20}
+                color={pathname === "/data" ? "#1886ff" : "#f2f3f5"}
+              />
+            </div>
+            <span
+              className={cn("text-xs", {
+                "text-[#1886ff]": pathname === "/data",
+              })}
+            >
+              Данные
+            </span>
+          </Link>
+        </div>
+        <div>
+          <Link className="flex flex-col items-center gap-1" href="/dreams/add">
+            <div>
+              <CirclePlus
+                size={32}
+                color={pathname === "/dreams/add" ? "#1886ff" : "#f2f3f5"}
+              />
+            </div>
+          </Link>
+        </div>
+        <div>
+          <Link className="flex flex-col items-center gap-1" href="/feeds">
+            <div>
+              <Newspaper
+                size={20}
+                color={pathname === "/feeds" ? "#1886ff" : "#f2f3f5"}
+              />
+            </div>
+            <span
+              className={cn("text-xs", {
+                "text-[#1886ff]": pathname === "/feeds",
+              })}
+            >
+              Лента
+            </span>
+          </Link>
+        </div>
+        <div>
+          <Link className="flex flex-col items-center gap-1" href="/profile">
+            <div>
+              <CircleUser
+                size={20}
+                color={pathname === "/profile" ? "#1886ff" : "#f2f3f5"}
+              />
+            </div>
+            <span
+              className={cn("text-xs", {
+                "text-[#1886ff]": pathname === "/profile",
+              })}
+            >
+              Профиль
+            </span>
+          </Link>
+        </div>
       </div>
     </div>
   );
