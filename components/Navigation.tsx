@@ -53,7 +53,7 @@ export const Navigation = () => {
           <Link className="flex flex-col items-center gap-1" href="/dreams/add">
             <div>
               <CirclePlus
-                size={32}
+                size={36}
                 color={pathname === "/dreams/add" ? "#1886ff" : "#f2f3f5"}
               />
             </div>
