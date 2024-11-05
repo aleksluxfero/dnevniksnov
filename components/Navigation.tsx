@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 export const Navigation = () => {
   const pathname = usePathname();
   return (
-    <div className="fixed w-full bottom-0 left-0 border-0 border-t border-t-gray-800">
+    <div className="fixed w-full bottom-0 left-0 border-0 border-t border-t-[#191a22]">
       <div className="px-4 py-3 flex items-center justify-between bg-foreground">
         <div>
           <Link className="flex flex-col items-center gap-1" href="/">
