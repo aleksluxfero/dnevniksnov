@@ -28,7 +28,7 @@ import { ErrorPage } from "@/components/ErrorPage";
 import { useBackButton } from "@/hooks/useBackButton";
 
 function RootInner({ children }: PropsWithChildren) {
-  const isWeb = false;
+  const isWeb = true;
   const isDev = process.env.NODE_ENV === "development";
   // Mock Telegram environment in development mode if needed.
   if (isDev) {

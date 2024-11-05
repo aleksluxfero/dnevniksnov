@@ -14,10 +14,10 @@ export const DreamList: FC<DreamListProps> = ({ dreams }) => {
     return (
       <Link key={dream.id} href={"/dreams/" + dream.id} className="w-full">
         <Card className="w-full bg-[#191a22] text-[#f2f3f5] border-none">
-          <CardHeader className="px-4">
+          <CardHeader className="px-4 py-4">
             <CardTitle className="line-clamp-1">{dream.title}</CardTitle>
           </CardHeader>
-          <CardContent className="px-4">
+          <CardContent className="px-4 pb-4">
             <p className="line-clamp-3 text-sm m-0 text-[#e7e8ec]">
               {dream.description}
             </p>
@@ -38,7 +38,7 @@ export const DreamList: FC<DreamListProps> = ({ dreams }) => {
   });
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4">
+    <div className="flex flex-col items-center justify-center gap-4 px-4">
       {dreamsEl}
     </div>
   );
