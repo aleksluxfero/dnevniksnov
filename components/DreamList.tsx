@@ -24,9 +24,9 @@ export const DreamList: FC<DreamListProps> = ({ dreams }) => {
             <CardTitle className="line-clamp-1">{dream.title}</CardTitle>
           </CardHeader>
           <CardContent className="px-4">
-            <CardDescription className="line-clamp-3 m-0 text-[#e7e8ec]">
+            <p className="line-clamp-3 text-sm m-0 text-[#e7e8ec]">
               {dream.description}
-            </CardDescription>
+            </p>
           </CardContent>
           {/*<CardFooter>
           <span>
