@@ -19,12 +19,12 @@ export const DreamList: FC<DreamListProps> = ({ dreams }) => {
   const dreamsEl = dreams.map((dream) => {
     return (
       <Link key={dream.id} href={"/dreams/" + dream.id} className="w-full">
-        <Card className="w-full bg-foreground text-[#f2f3f5] border-none">
+        <Card className="w-full bg-[#191a22] text-[#f2f3f5] border-none">
           <CardHeader className="px-4">
             <CardTitle className="line-clamp-1">{dream.title}</CardTitle>
           </CardHeader>
           <CardContent className="px-4">
-            <CardDescription className="line-clamp-3 m-0 text-[#99a2ad]">
+            <CardDescription className="line-clamp-3 m-0 text-[#e7e8ec]">
               {dream.description}
             </CardDescription>
           </CardContent>
