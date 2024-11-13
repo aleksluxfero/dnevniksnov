@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="ru">
       <body>
         <Root>
-          <div className="flex flex-col relative">
+          <div className="flex flex-col relative max-w-[660px] mx-auto">
             <main className="min-h-screen">{children}</main>
           </div>
         </Root>

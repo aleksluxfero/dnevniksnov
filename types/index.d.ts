@@ -7,4 +7,5 @@ export type Dream = {
   mood?: string[];
   locations?: string[];
   characters?: string[];
+  imgSrc?: string;
 };

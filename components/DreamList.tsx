@@ -1,29 +1,15 @@
 "use client";
 
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Dream } from "@/types";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Link } from "@/components/Link/Link";
-import { Button } from "@/components/ui/button";
-import { MouseEvent } from "react";
-import { getChatResponse } from "@/services/ai.service";
+import { DreamCard } from "@/components/DreamCard";
 
 interface DreamListProps {
   dreams: Dream[];
 }
 
 export const DreamList: FC<DreamListProps> = ({ dreams }) => {
-  const [imageUrls, setImageUrls] = useState<{ [key: string]: string | null }>(
-    {},
-  );
-
-  const generatePrompt = async (
+  /*const generatePrompt = async (
     evt: MouseEvent<HTMLButtonElement>,
     prompt: string,
     dreamId: string,
@@ -69,39 +55,10 @@ export const DreamList: FC<DreamListProps> = ({ dreams }) => {
 
     // Освобождаем память при удалении старых URL
     return () => URL.revokeObjectURL(url);
-  };
+  };*/
 
   const dreamsEl = dreams.map((dream) => {
-    return (
-      <Link key={dream.id} href={"/dreams/" + dream.id} className="w-full">
-        <Card className="w-full bg-[#191a22] text-[#f2f3f5] border-none">
-          <CardHeader className="px-4 py-4">
-            <CardTitle className="line-clamp-1">{dream.title}</CardTitle>
-          </CardHeader>
-          <CardContent className="px-4 pb-4">
-            <p className="line-clamp-3 text-sm m-0 text-[#e7e8ec]">
-              {dream.description}
-            </p>
-            {imageUrls[dream.id] && (
-              <img
-                src={imageUrls[dream.id] || undefined}
-                alt="Generated Dream Image"
-                className="mt-4 w-full h-auto rounded-lg"
-              />
-            )}
-          </CardContent>
-          <CardFooter>
-            <Button
-              onClick={(evt) =>
-                generatePrompt(evt, dream.description, dream.id)
-              }
-            >
-              Сгенерировать
-            </Button>
-          </CardFooter>
-        </Card>
-      </Link>
-    );
+    return <DreamCard key={dream.id} dream={dream} />;
   });
 
   return (
