@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Link } from "@/components/Link/Link";
 import { Dream } from "@/types";
 import { FC } from "react";
