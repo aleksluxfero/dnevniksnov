@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "@/components/Link/Link";
 import { Dream } from "@/types";
 import { FC } from "react";
@@ -11,7 +11,7 @@ export const DreamCard: FC<DreamCardProps> = ({ dream }) => {
   return (
     <Link key={dream.id} href={"/dreams/" + dream.id} className="w-full">
       <Card className="w-full bg-[#191a22] text-[#f2f3f5] border-none pb-2">
-        <CardHeader className="p-1">
+        <CardHeader className="p-0 pt-1 px-1 mb-2">
           <img
             src={dream.imgSrc || "/img.jfif"}
             alt="Generated Dream Image"
@@ -19,6 +19,7 @@ export const DreamCard: FC<DreamCardProps> = ({ dream }) => {
           />
         </CardHeader>
         <CardContent className="p-0 px-2">
+          <CardTitle className="p-0 mb-2">{dream.title}</CardTitle>
           <p className="line-clamp-3 text-sm m-0 text-[#e7e8ec]">
             {dream.description}
           </p>
