@@ -62,7 +62,7 @@ export const DreamList: FC<DreamListProps> = ({ dreams }) => {
   });
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4 px-4">
+    <div className="flex flex-col items-center justify-center gap-4 px-2">
       {dreamsEl}
     </div>
   );

@@ -15,7 +15,7 @@ export const Navigation = () => {
   return (
     <div
       className="fixed w-full bottom-0 left-[50%] translate-x-[-50%]
-     border border-[#191a22] max-w-[628px] rounded-t-xl overflow-hidden bg-foreground"
+     border border-[#191a22] max-w-[644px] rounded-t-xl overflow-hidden bg-foreground"
     >
       <div className="px-4 py-3 flex items-center justify-between">
         <div>
