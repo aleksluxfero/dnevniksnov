@@ -29,11 +29,13 @@ export const DreamCard: FC<DreamCardProps> = ({ dream }) => {
       {(dream.title || dream.description) && (
         <CardContent className="p-0 px-2 flex flex-col gap-2">
           {dream.title && (
-            <CardTitle className="p-0 line-clamp-1">{dream.title}</CardTitle>
+            <CardTitle className="p-0 text-lg line-clamp-1">
+              {dream.title}
+            </CardTitle>
           )}
           <p
             onClick={() => setIsOpenDescription((prevState) => !prevState)}
-            className={cn("line-clamp-3 text-sm m-0 text-[#e7e8ec]", {
+            className={cn("line-clamp-3 text-base m-0 text-[#e7e8ec]", {
               "line-clamp-none": isOpenDescription,
             })}
           >
