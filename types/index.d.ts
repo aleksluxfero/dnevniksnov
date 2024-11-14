@@ -1,7 +1,7 @@
 export type Dream = {
   id: string;
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   date: Date;
   tags?: string[];
   mood?: string[];
