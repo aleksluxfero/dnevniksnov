@@ -1,9 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dream } from "@/types";
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-import { Link } from "@/components/Link/Link";
-import { useRouter } from "next/navigation";
 
 interface DreamCardProps {
   dream: Dream;
