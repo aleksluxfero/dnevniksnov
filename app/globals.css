@@ -77,3 +77,8 @@ body, html {
     text-wrap: balance;
   }
 }
+
+.show-more-less-clickable {
+  color: var(--blue2);
+  cursor: pointer;
+}
