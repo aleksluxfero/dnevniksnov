@@ -1,8 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dream } from "@/types";
-import { FC, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Link } from "@/components/Link/Link";
+import { useRouter } from "next/navigation";
 
 interface DreamCardProps {
   dream: Dream;
@@ -10,33 +11,13 @@ interface DreamCardProps {
 
 export const DreamCard: FC<DreamCardProps> = ({ dream }) => {
   const [isOpenText, setIsOpenText] = useState(false);
-
-  const getText = (description: string, id: string) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const getText = (description: string) => {
     if (!isOpenText && description.length > 130) {
       return (
         <p>
           {description.slice(0, 120).trimEnd() + "... "}
-          <Link
-            href={"#" + id}
-            className="text-[#1886ff]"
-            onClick={() => setIsOpenText(true)}
-          >
-            Показать еще
-          </Link>
-        </p>
-      );
-    }
-    if (isOpenText) {
-      return (
-        <p>
-          {description + "... "}
-          <Link
-            href={"#" + id}
-            className="text-[#1886ff]"
-            onClick={() => setIsOpenText(false)}
-          >
-            Скрыть
-          </Link>
+          <span className="text-[#1886ff] cursor-pointer">Показать еще</span>
         </p>
       );
     }
@@ -45,7 +26,7 @@ export const DreamCard: FC<DreamCardProps> = ({ dream }) => {
 
   return (
     <Card
-      id={dream.id}
+      ref={ref}
       className={cn(
         "w-full bg-[#191a22] text-[#f2f3f5] border-none flex flex-col gap-2",
         {
@@ -70,11 +51,21 @@ export const DreamCard: FC<DreamCardProps> = ({ dream }) => {
           )}
           {dream.description && (
             <div
-              className={cn(
-                "text-base leading-5 m-0 text-[#e7e8ec] cursor-pointer",
-              )}
+              onClick={(evt: React.MouseEvent<HTMLDivElement>) => {
+                if (evt.currentTarget.getBoundingClientRect().top < 0) {
+                  if (ref.current) {
+                    ref.current.scrollIntoView();
+                  }
+                }
+                if (isOpenText) {
+                  setIsOpenText(false);
+                } else {
+                  setIsOpenText(true);
+                }
+              }}
+              className={cn("text-base leading-5 m-0 text-[#e7e8ec]")}
             >
-              {getText(dream.description, dream.id)}
+              {getText(dream.description)}
             </div>
           )}
         </CardContent>
