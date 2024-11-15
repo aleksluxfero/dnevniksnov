@@ -23,12 +23,12 @@ export const Navigation = () => {
             <div>
               <NotebookPen
                 size={20}
-                color={pathname === "/" ? "#1886ff" : "#f2f3f5"}
+                color={pathname === "/" ? "#007bff" : "#f2f3f5"}
               />
             </div>
             <span
               className={cn("text-xs", {
-                "text-[#1886ff]": pathname === "/",
+                "text-[#007bff]": pathname === "/",
               })}
             >
               Дневник
