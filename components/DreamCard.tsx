@@ -67,7 +67,7 @@ export const DreamCard: FC<DreamCardProps> = ({ dream }) => {
               {dream.title}
             </CardTitle>
           )}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 mt-1">
             <span
               className={cn("text-pink-500 text-xs flex items-center gap-1", {
                 "text-orange-500": dream.type === "Полуосознанный",
@@ -103,20 +103,22 @@ export const DreamCard: FC<DreamCardProps> = ({ dream }) => {
           )}
         </CardContent>
       )}
-      <CardFooter className="p-0 px-2">
-        <div className="flex items-center flex-wrap gap-1">
-          {dream.tags?.map((tag) => {
-            return (
-              <Badge
-                key={tag}
-                className="bg-slate-700 hover:bg-slate-600 cursor-pointer"
-              >
-                {tag}
-              </Badge>
-            );
-          })}
-        </div>
-      </CardFooter>
+      {dream.tags && (
+        <CardFooter className="p-0 px-2">
+          <div className="flex items-center flex-wrap gap-1">
+            {dream.tags.map((tag) => {
+              return (
+                <Badge
+                  key={tag}
+                  className="bg-slate-700 hover:bg-slate-600 cursor-pointer"
+                >
+                  {tag}
+                </Badge>
+              );
+            })}
+          </div>
+        </CardFooter>
+      )}
     </Card>
   );
 };
