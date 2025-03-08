@@ -1,11 +1,12 @@
 import { Bot } from "grammy";
-
+import { HfInference } from "@huggingface/inference";
 const token = process.env.TELEGRAM_BOT_TOKEN;
 
 if (!token)
   throw new Error("TELEGRAM_BOT_TOKEN environment variable not found.");
 
 const bot = new Bot(token);
+const hf = new HfInference(process.env.HUGGINGFACE_API_TOKEN || "");
 
 bot.command("start", async (ctx) => {
   await ctx.reply(
@@ -13,40 +14,35 @@ bot.command("start", async (ctx) => {
   );
 });
 
-bot.on("pre_checkout_query", async (ctx) => {
-  const query = ctx.update.pre_checkout_query;
-
-  console.log(query);
-  // Проверьте заказ (например, проверка валидности товара, пользователя и т.д.)
-  const isOrderValid = true;
-
-  if (isOrderValid) {
-    await ctx.answerPreCheckoutQuery(true); // Подтверждение заказа
-  } else {
-    await ctx.answerPreCheckoutQuery(false, "Order is invalid");
-  }
-});
-
-bot.on("message:successful_payment", async (ctx) => {
-  const payment = ctx.message.successful_payment;
-
-  console.log(payment);
-
-  // Здесь вы можете обработать успешный платеж
-  console.log(
-    `User ${ctx.from.id} successfully paid for ${payment.total_amount / 100} currency ${payment.currency}`,
-  );
-
-  // Отправьте сообщение в мини-приложение или выполните другие действия
-  await ctx.reply(
-    "Thank you for your payment! Your subscription has been activated.",
-  );
-});
-
 bot.on("message:text", async (ctx) => {
   const chatId = ctx.chat.id;
   // Отправляем сообщение обратно пользователю
   await ctx.reply(`Ваш чат ID: ${chatId}`);
+});
+
+// Обработка голосовых сообщений с Whisper
+bot.on("message:voice", async (ctx) => {
+  try {
+    const file = await ctx.getFile();
+    if (file.file_size && file.file_size > 5 * 1024 * 1024) {
+      await ctx.reply("Голосовое сообщение слишком большое (макс. 5 МБ)");
+      return;
+    }
+
+    const fileUrl = `https://api.telegram.org/file/bot${token}/${file.file_path}`;
+    const response = await fetch(fileUrl);
+    const audioBuffer = await response.arrayBuffer();
+
+    const transcription = await hf.automaticSpeechRecognition({
+      model: "openai/whisper-large-v3",
+      data: audioBuffer,
+    });
+
+    await ctx.reply(`Твой текст: ${transcription.text}`);
+  } catch (error) {
+    console.error("Ошибка обработки голосового сообщения:", error);
+    await ctx.reply("Упс, не смог обработать голосовое сообщение!");
+  }
 });
 
 export default bot;
